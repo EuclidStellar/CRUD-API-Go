@@ -9,6 +9,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
+
+// Movies ka struct
+
+
 type Movie struct {
 
 	ID string `json:"id"`
@@ -18,6 +22,10 @@ type Movie struct {
 
 
 }
+
+
+// Director sahab ka struct
+
 
 type Director struct {
 
@@ -30,6 +38,22 @@ type Director struct {
 
 
 var movies []Movie
+
+
+
+// Func 1 
+
+
+
+func getMovies(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(movies)
+
+}
+
+
+// Func 2
 
 
 func getMovie(w http.ResponseWriter, r *http.Request) {
@@ -54,10 +78,13 @@ func getMovie(w http.ResponseWriter, r *http.Request) {
 
 
 
-
 func main() {
 
 	r := mux.NewRouter()
+
+
+
+	//  making Struct Objects coz database nhi mila abhi tak
 
 	movies = append(movies, Movie{ID: "1", Title: "The Shawshank Redemption", Year: "1994", Director: &Director{FirstName: "Frank", LastName: "Darabont", Age: 61}})
 	movies = append(movies, Movie{ID: "2", Title: "The Godfather", Year: "1972", Director: &Director{FirstName: "Francis", LastName: "Ford Coppola", Age: 81}})
@@ -66,13 +93,24 @@ func main() {
 	movies = append(movies , Movie{ID : "5" , Title : "The Pursuit of Happyness" , Year : "2006" , Director : &Director{FirstName : "Gabriele" , LastName : "Muccino" , Age : 53}})
 
 
+
+	// Handling Function for better understanding 
+
+
 	r.HandleFunc("/movies", getMovies).Methods("GET")
 	r.HandleFunc("/movies/{id}", getMovie).Methods("GET")
 	r.HandleFunc("/movies", createMovie).Methods("POST")
 	r.HandleFunc("/movies/{id}", updateMovie).Methods("PUT")
 	r.HandleFunc("/movies/{id}", deleteMovie).Methods("DELETE")
 
+
+
+	// Server chala rha hu 
+
+
 	fmt.Println("Server on port 8000\n")
 	log.Fatal(http.ListenAndServe(":8000", r))
 
 }
+
+
