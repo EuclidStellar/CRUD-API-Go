@@ -13,7 +13,7 @@ type Movie struct {
 	ID string `json:"id"`
 	Title string `json:"title"`
 	Year string `json:"year"`
-	Director Director `json:"director"`
+	Director *Director `json:"director"`
 
 
 }
@@ -33,6 +33,14 @@ var movies []Movie
 func main() {
 
 	r := mux.NewRouter()
+
+	movies = append(movies, Movie{ID: "1", Title: "The Shawshank Redemption", Year: "1994", Director: &Director{FirstName: "Frank", LastName: "Darabont", Age: 61}})
+	movies = append(movies, Movie{ID: "2", Title: "The Godfather", Year: "1972", Director: &Director{FirstName: "Francis", LastName: "Ford Coppola", Age: 81}})
+	movies = append(movies , Movie{ID: "3", Title: "The Dark Knight", Year: "2008", Director: &Director{FirstName: "Christopher", LastName: "Nolan", Age: 50}})
+	movies = append(movies, Movie{ID: "4" , Title : "Swadesh" , Year : "2004" , Director : &Director{FirstName : "Ashutosh" , LastName : "Gowariker" , Age : 56}})
+	movies = append(movies , Movie{ID : "5" , Title : "The Pursuit of Happyness" , Year : "2006" , Director : &Director{FirstName : "Gabriele" , LastName : "Muccino" , Age : 53}})
+	
+
 	r.HandleFunc("/movies", getMovies).Methods("GET")
 	r.HandleFunc("/movies/{id}", getMovie).Methods("GET")
 	r.HandleFunc("/movies", createMovie).Methods("POST")
