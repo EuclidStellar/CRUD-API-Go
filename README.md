@@ -69,13 +69,13 @@ To run the project locally, make sure you have Golang installed. Follow these st
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/golang-crud-hardcoded.git
+   git clone https://github.com/EuclidStellar/CRUD-API-Go/
    ```
 
 2. Navigate to the project folder:
 
    ```bash
-   cd golang-crud-hardcoded
+   cd CRUD-API-Go
    ```
 
 3. Run the application:
